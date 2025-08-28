@@ -43,6 +43,7 @@ export function buildSoapEnvelopeComparendo(dto: CargaComparendoDto): string {
         <xsd:iNtelefonoInfractor>${dto.iNtelefonoInfractor}</xsd:iNtelefonoInfractor>
         <xsd:iNcodigoInfraccion1>${dto.iNcodigoInfraccion1}</xsd:iNcodigoInfraccion1>
         <xsd:iNvalorInf1>${dto.iNvalorInf1}</xsd:iNvalorInf1>
+        <xsd:iNvalorAdi>${dto.iNvalorAdi}</xsd:iNvalorAdi>
         <xsd:iNvalorComp>${dto.iNvalorComp}</xsd:iNvalorComp>
         <xsd:iNorganismoTransito>${dto.iNorganismoTransito}</xsd:iNorganismoTransito>
         <xsd:iNestado>${dto.iNestado}</xsd:iNestado>

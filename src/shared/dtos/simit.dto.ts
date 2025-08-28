@@ -42,6 +42,10 @@ export class CargaComparendoDto {
 
   @ApiProperty()
   @IsNumber()
+  iNvalorAdi:number;
+
+  @ApiProperty()
+  @IsNumber()
   iNtipoS: number;
 
   @ApiProperty()
