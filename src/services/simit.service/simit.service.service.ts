@@ -48,25 +48,33 @@ export class SimitService {
     'https://qaconsultassimit.fcm.org.co/Simit/services/WsCargaArchivos.WsCargaArchivosHttpsSoap12Endpoint/';
 
   async cargarComparendo(dto: CargaComparendoDto) {
-    const xml = buildSoapEnvelopeComparendo(dto);
-    this.logger.log('📤 Enviando comparendo a SIMIT...');
+    try {
+      const xml = buildSoapEnvelopeComparendo(dto);
+      this.logger.log('📤 Enviando comparendo a SIMIT... , numero de comparendo:'+dto.iNnumeroComparendo);
 
-    const { data } = await axios.post(this.endpoint, xml, {
-      headers: {
-        'Content-Type': 'text/xml;charset=UTF-8',
-        SOAPAction: '""',
-      },
-    });
+      const { data } = await axios.post(this.endpoint, xml, {
+        headers: {
+          'Content-Type': 'text/xml;charset=UTF-8',
+          SOAPAction: '""',
+        },
+      });
 
-    const parser = new XMLParser({ ignoreAttributes: false });
-    const response = parser.parse(data);
+      const parser = new XMLParser({ ignoreAttributes: false });
+      const response = parser.parse(data);
 
-    const errorMsg = mapSimitError(response);
+      const errorMsg = mapSimitError(response);
 
-    return {
-      errorMsg,
-      simitResponse: response,
-    };
+      return {
+        errorMsg,
+        simitResponse: response,
+      };
+    } catch (error) {
+      this.logger.error('Error enviando comparendo a SIMIT', error);
+      return {
+        errorMsg: 'Error de comunicación con SIMIT',
+        simitResponse: error?.response?.data || error.message || error,
+      };
+    }
   }
 
   async cargarResolucion(dto: CargaResolucionDto) {
